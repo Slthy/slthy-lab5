@@ -1,33 +1,29 @@
 public class Rotor {
 
-    
     private String rotorValues;
-    private char startChar;
-        
-    public Rotor(String v, char c){
+    private final char startChar;
+    
+    public Rotor(String v, char c) {
+
         this.rotorValues = v;
         this.startChar = c;
 
-        
-        while(!this.rotate());
-            
+        while (rotorValues.charAt(0) != startChar) {
+            rotate();
+        }
     }
-    
+
     public boolean rotate() {
-        rotorValues = rotorValues.substring(1) + rotorValues.charAt(0);
+        char last = rotorValues.charAt(rotorValues.length() - 1);
+        rotorValues = last + rotorValues.substring(0, rotorValues.length() - 1);
         return rotorValues.charAt(0) == startChar;
     }
-    
 
-    public int indexOf(char c){
-        for(int idx = 0; idx < rotorValues.length(); idx++){
-            if(rotorValues.charAt(idx) == c) return idx;
-        }
-        return -1;
+    public int indexOf(char c) {
+        return rotorValues.indexOf(c);
     }
 
-    public char charAt(int idx){
-        return this.rotorValues.charAt(idx);
+    public char charAt(int idx) {
+        return rotorValues.charAt(idx);
     }
 }
-    

@@ -1,36 +1,39 @@
-import java.util.Scanner;
+public class Rotor {
 
-/**
- * Creates an Enigma machine based on command-line arguments, and reads the message
- * from the user on STDIN. Decrypts/Encrypts using the enigma class.
- */
-public class Comms {
-
-  public static String run(String[] args) {
     
-    // Encrypt or decrypt argument
-    boolean encrypt = true;
-    if( args[4].equals("decrypt") )
-      encrypt = false;
+    private String rotorValues;
+    private char startChar;
 
-    // Rotors
-    int id1 = Integer.parseInt(args[0]);
-    int id2 = Integer.parseInt(args[1]);
-    int id3 = Integer.parseInt(args[2]);
+    private boolean rotate_upper;
+    private int rotations;
+
+        
+    public Rotor(String v, char c){
+        this.rotorValues = new String(v);
+        this.startChar = c;
+
+        
+        while(!this.rotate());
+            
+    }
     
-    // Get the message from the user, and call the appropriate method
-    // Scanner scan = new Scanner(System.in);
-    // String message = scan.next();
+    public boolean rotate(){
+        char last_char = this.rotorValues.charAt(rotorValues.length() - 1);
+        this.rotorValues = last_char + rotorValues.substring(0, rotorValues.length() - 1);
+        return rotorValues.charAt(0) == this.startChar;
+        
+    }
+    
 
-    String message = args[5];
+    public int indexOf(char c){
+        for(int idx = 0; idx < rotorValues.length(); idx++){
+            if(rotorValues.charAt(idx) == c) return idx;
+        }
+        return -1;
+    }
 
-    // Call the Enigma's constructor to build the machine
-    Enigma enigma = new Enigma(id1, id2, id3, args[3]);
-
-    // Encrypt or Decrypt
-    if( encrypt )
-      return enigma.encrypt(message);
-    else
-      return enigma.decrypt(message);
-  }
+    public char charAt(int idx){
+        return this.rotorValues.charAt(idx);
+    }
 }
+    

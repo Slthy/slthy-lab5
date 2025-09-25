@@ -21,11 +21,18 @@ public class Enigma{
 
     public String decrypt(String message){        
         String output = "";
-        for (char c : message.toCharArray()){
-            char step_one = this.rotors[2].charAt(this.rotors[0].indexOf(c));
-            char step_two = this.rotors[1].charAt(this.rotors[2].indexOf(step_one));
-            output += this.rotors[2].charAt(this.rotors[1].indexOf(step_two));
-            //rotate
+        for (char c : message.toCharArray()) {
+
+
+            char step_one = rotors[1].charAt(rotors[2].indexOf(c));
+
+
+            char step_two = rotors[2].charAt(rotors[1].indexOf(step_one));
+
+
+            output += rotors[0].charAt(rotors[2].indexOf(step_two));
+
+            rotate();  
         }
         return output;
     }
@@ -34,23 +41,24 @@ public class Enigma{
     
     public String encrypt(String message){
         String output = "";
-        for (char c : message.toCharArray()){
-            char step_one = this.rotors[2].charAt(this.rotors[1].indexOf(c));
-            char step_two = this.rotors[1].charAt(this.rotors[2].indexOf(step_one));
-            output +=  this.rotors[2].charAt(this.rotors[0].indexOf(step_two));
+        for (char c : message.toCharArray()) {
 
-            //rotate
+
+            char step_one = rotors[2].charAt(rotors[0].indexOf(c));
+
+            char step_two = rotors[1].charAt(rotors[2].indexOf(step_one));
+
+            output += rotors[2].charAt(rotors[1].indexOf(step_two));
+
+            rotate();  
         }
         return output;
     }
 
     
-    private void rotate(){
-        if(rotors[0].rotate()){
-            if(rotors[1].rotate()){
-                rotors[2].rotate();
-            }
-        }
+    private void rotate() {
+        if (rotors[0].rotate()) rotors[1].rotate();
     }
+
     
 }

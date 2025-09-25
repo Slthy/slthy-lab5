@@ -3,13 +3,9 @@ public class Rotor {
     
     private String rotorValues;
     private char startChar;
-
-    private boolean rotate_upper;
-    private int rotations;
-
         
     public Rotor(String v, char c){
-        this.rotorValues = new String(v);
+        this.rotorValues = v;
         this.startChar = c;
 
         
@@ -17,11 +13,9 @@ public class Rotor {
             
     }
     
-    public boolean rotate(){
-        char last_char = this.rotorValues.charAt(rotorValues.length() - 1);
-        this.rotorValues = last_char + rotorValues.substring(0, rotorValues.length() - 1);
-        return rotorValues.charAt(0) == this.startChar;
-        
+    public boolean rotate() {
+        rotorValues = rotorValues.substring(1) + rotorValues.charAt(0);
+        return rotorValues.charAt(0) == startChar;
     }
     
 
